@@ -2,13 +2,12 @@
 
 namespace app\admin\controller;
 
-
 class Article extends Base
 {
     // 文章列表
     public function list()
     {
-        $articles = model('Article')->order([
+        $articles = model('Article')->with('cate')->order([
             'is_top' => 'asc',
             'create_time' => 'desc'
         ])->paginate(10);
@@ -58,5 +57,9 @@ class Article extends Base
         } else {
             $this->error($result);
         }
+    }
+
+    public function edit(){
+         
     }
 }

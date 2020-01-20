@@ -10,6 +10,11 @@ class Article extends Model
     //软删除
     use SoftDelete;
 
+    // 关联栏目表
+
+    public function cate(){
+        return $this->belongsTo('Cate','cate_id','id');
+    }
     // 添加文章
     public function add($data)
     {
