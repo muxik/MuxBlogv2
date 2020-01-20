@@ -1,0 +1,148 @@
+{include file='public/_head'/}
+<!-- /Navbar -->
+<!-- Main Container -->
+<div class="main-container container-fluid">
+	<!-- Page Container -->
+	<div class="page-container">
+
+		<!-- Page Sidebar -->
+		{include file='public/_left'/}
+		<!-- /Page Sidebar -->
+		<!-- Page Content -->
+		<div class="page-content">
+			<!-- Page Breadcrumb -->
+			<div class="page-breadcrumbs">
+				<ul class="breadcrumb">
+					<li class="active">
+						<i class="fa fa-home"></i>&nbsp;栏目管理
+					</li>
+					<li>栏目列表</li>
+				</ul>
+			</div>
+			<!-- /Page Breadcrumb -->
+			<!-- Page Body -->
+			<div class="page-body">
+				<a href="cateadd.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;栏目添加</a>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="widget">
+							<div class="widget-header">
+								<span class="widget-caption">栏目列表</span>
+								<div class="widget-buttons">
+									{$cates->render()|raw|replace}
+								</div>
+							</div>
+							<div class="widget-body">
+								<table class="table table-hover table-bordered">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>栏目名称</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										{volist name='cates' id='vo'}
+										<tr>
+											<td><input size="1" type="text" name="sort" dataid="{$vo.id}"
+													value="{$vo.sort}">
+											</td>
+											<td>{$vo.catename}</td>
+											<td>
+												<a href="{:url('admin/cate/edit',['id'=>$vo.id])}"
+													class="btn btn-azure btn-xs">编辑</a>
+												<a href="#del" class="btn btn-danger btn-xs cate-del"
+													dataid="{$vo.id}">删除</a>
+											</td>
+										</tr>
+										{/volist}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Page Body -->
+		</div>
+		<!-- /Page Content -->
+
+	</div>
+	<!-- /Page Container -->
+	<!-- Main Container -->
+
+</div>
+
+{include file='public/_js'/}
+</body>
+<!--  /Body -->
+
+</html>
+
+<script>
+	$(function () {
+		$('.pagination').addClass('pagination-sm');
+
+		$('input[name=sort]').change(function () {
+			var id = $(this).attr('dataid');
+			var sort = $(this).val();
+
+			$.ajax({
+				url: "{:url('admin/cate/sort')}",
+				type: 'post',
+				data: {
+					"id": id,
+					"sort": sort
+				},
+
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 1) {
+						layer.msg(data.msg, {
+							icon: 6,
+							time: 2000
+						})
+					} else {
+						layer.open({
+							icon: 5,
+							title: '修改失败',
+							content: data.msg,
+							anim: 6
+						});
+					}
+				}
+			});
+			return false;
+		});
+
+		$('.cate-del').click(function () {
+			var id = $(this).attr('dataid');
+			layer.confirm('确认删除吗？', {
+				title: '栏目删除',
+				icon: 3
+			}, function (index) {
+				layer.close(index);
+				$.ajax({
+					url: "{:url('admin/cate/del')}",
+					type: 'post',
+					data: { "id": id },
+					dataType: 'json',
+					success: function (data) {
+						if (data.code == 1) {
+							layer.msg(data.msg, { icon: 6, time: 2000 }, function () {
+								location.href = data.url;
+							})
+						}
+						else {
+							layer.open({ icon: 6, title: '删除失败', content: data.msg, anim: 6 })
+						}
+					}
+				});
+			});
+			return false;
+
+		});
+
+	});
+
+</script>

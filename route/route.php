@@ -1,0 +1,37 @@
+<?php
+// +----------------------------------------------------------------------
+// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: liu21st <liu21st@gmail.com>
+// +----------------------------------------------------------------------
+
+// use think\console\command\optimize\Route;
+
+
+Route::group('admin', function () {
+    Route::rule('/', 'admin/index/login', 'get|post');
+    Route::rule('register', 'admin/index/register', 'get|post');
+    Route::rule('forget', 'admin/index/forget', 'get|post');
+    Route::rule('reset', 'admin/index/reset', 'post');
+
+    Route::rule('index', 'admin/home/index', 'get');
+    Route::rule('loginout', 'admin/home/loginout', 'post');
+
+    // Cate operation
+    Route::rule('cate-list', 'admin/cate/list', 'get');
+    Route::rule('cate-add', 'admin/cate/add', 'get|post');
+    Route::rule('cate-sort', 'admin/cate/sort', 'post');
+    Route::rule('cate-edit/[:id]', 'admin/cate/edit', 'get|post');
+    Route::rule('cate-del', 'admin/cate/del', 'post');
+
+    // Article operation
+
+    Route::rule('article-list', 'admin/article/list', 'get|post');
+    Route::rule('article-add', 'admin/article/add', 'get|post');
+});
+
+Route::rule('/', 'admin/index/demo', 'get|post');
