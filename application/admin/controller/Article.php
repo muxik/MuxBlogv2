@@ -43,4 +43,20 @@ class Article extends Base
         $this->assign($viewData);
         return view();
     }
+
+    public function top()
+    {
+        $data = [
+            'id' => input('post.id'),
+            'is_top' => input('post.is_top') ? 0 : 1
+        ];
+
+        $result = model('Article')->top($data);
+
+        if ($result == 1) {
+            $this->success('操作成功');
+        } else {
+            $this->error($result);
+        }
+    }
 }

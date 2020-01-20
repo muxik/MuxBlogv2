@@ -17,12 +17,18 @@ class Article extends Validate
         'tags|标签' => 'require',
         'cate_id|所属栏目' => 'require',
         'desc|文章概要' => 'require',
-        'content|文章内容' => 'require'
+        'content|文章内容' => 'require',
+        'is_top|推荐' => 'require'
     ];
 
     // 验证场景
     public function sceneAdd()
     {
         return $this->only(['title', 'tags', 'cate_id', 'desc', 'content']);
+    }
+
+    public function sceneTop()
+    {
+        return $this->only(['is_top']);
     }
 }

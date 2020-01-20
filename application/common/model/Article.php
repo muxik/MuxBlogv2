@@ -26,4 +26,22 @@ class Article extends Model
             return '文章添加失败';
         }
     }
+
+
+    public function top($data)
+    {
+        $validate = new \app\common\validate\Article();
+        if (!$validate->scene('top')->check($data)) {
+            return $validate->getError();
+        }
+
+        $articleInfo = $this->find($data['id']);
+        $articleInfo->is_top = $data['is_top'];
+        $result = $articleInfo->save();
+        if ($result) {
+            return 1;
+        } else {
+            return '操作失败';
+        }
+    }
 }

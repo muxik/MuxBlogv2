@@ -30,14 +30,7 @@
                             <div class="widget-header">
                                 <span class="widget-caption">添加文章</span>
                                 <div class="widget-buttons">
-                                    <ul class="pagination pagination-sm">
-                                        <li class="disabled"><a href="#">«</a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">»</a></li>
-                                    </ul>
+                                    {$articles->render()|raw|replace}
                                 </div>
                             </div>
                             <div class="widget-body">
@@ -58,7 +51,13 @@
                                         <td>{$vo.cate_id}</td>
                                         <td>{if $vo.is_top == 1}推荐{else /}不推荐{/if}</td>
                                         <td>
-                                            <a href="javascript:;" class="btn btn-sm btn-primary">推荐</a>
+                                            {if $vo.is_top == 1}
+                                            <a href="#" class="btn btn-sm btn-darkorange article-top"
+                                                istop="{$vo.is_top}" dataid="{$vo.id}">取消推荐</a>
+                                            {else /}
+                                            <a href="#" class="btn btn-sm btn-primary article-top" istop="{$vo.is_top}"
+                                                dataid="{$vo.id}">👍推荐👍</a>
+                                            {/if}
                                             <a href="#" class="btn btn-sm btn-warning">编辑</a>
                                             <a href="#" class="btn btn-sm btn-danger">删除</a>
                                         </td>
@@ -84,3 +83,50 @@
 <!--  /Body -->
 
 </html>
+
+<script>
+    $(function () {
+        $('.article-top').click(function () {
+            var id = $(this).attr('cateid');
+            var is_top = $(this).attr('istop');
+            if (is_top == 1) {
+                var msg = '确认取消推荐吗？';
+            } else {
+                var msg = "确认推荐吗？";
+            }
+            layer.confirm(msg, {
+                title: '推荐操作',
+                icon: 3
+            }, function (index) {
+                layer.close(index);
+                $.ajax({
+                    url: "{:url('admin/article/top')}",
+                    type: 'post',
+                    data: {
+                        "id": id,
+                        "is_top": is_top
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code == 1) {
+                            layer.msg(data.msg, {
+                                icon: 6, time: 2000
+                            }, function () {
+                                location.href = data.url;
+                            });
+                        }
+                        else {
+                            layer.open({
+                                icon: 5,
+                                content: data.msg,
+                                title: "操作失败",
+                                anim: 6
+                            });
+                        }
+                    }
+                });
+            });
+            return false;
+        });
+    });
+</script>

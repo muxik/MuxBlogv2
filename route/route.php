@@ -30,8 +30,10 @@ Route::group('admin', function () {
 
     // Article operation
 
-    Route::rule('article-list', 'admin/article/list', 'get|post');
+    Route::rule('article-list', 'admin/article/list', 'get');
     Route::rule('article-add', 'admin/article/add', 'get|post');
+    Route::rule('article-top', 'admin/article/top', 'post');
+    Route::rule('article-del', 'admin/article/del', 'post');
 });
 
 Route::rule('/', 'admin/index/demo', 'get|post');
