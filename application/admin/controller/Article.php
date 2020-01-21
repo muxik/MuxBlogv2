@@ -59,7 +59,15 @@ class Article extends Base
         }
     }
 
-    public function edit(){
-         
+    public function edit()
+    {
+        $articleInfo = model('Article')->find(input('id'));
+        $cates = model('Cate')->select();
+        $viewData = [
+            'articleInfo' => $articleInfo,
+            'cates' => $cates
+        ];
+        $this->assign($viewData);
+        return view();
     }
 }
