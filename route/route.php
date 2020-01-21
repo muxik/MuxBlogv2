@@ -34,7 +34,7 @@ Route::group('admin', function () {
     Route::rule('article-add', 'admin/article/add', 'get|post');
     Route::rule('article-top', 'admin/article/top', 'post');
     Route::rule('article-del', 'admin/article/del', 'post');
-    Route::rule('article-edit', 'admin/article/edit', 'grt|post');
+    Route::rule('article-edit/[:id]', 'admin/article/edit', 'get|post');
 });
 
 Route::rule('/', 'admin/index/demo', 'get|post');
