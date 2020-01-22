@@ -2,7 +2,9 @@
 
 namespace app\admin\controller;
 
-class Article extends Base
+use think\Controller;
+
+class Article extends Controller
 {
     // 文章列表
     public function list()
@@ -61,6 +63,24 @@ class Article extends Base
 
     public function edit()
     {
+        if (request()->isAjax()) {
+            $data = [
+                'id' => input('post.id'),
+                'title' => input('post.title'),
+                'tags' => input('post.tags'),
+                'is_top' => input('post.is_top', 0),
+                'cate_id' => input('post.cate_id'),
+                'desc' => input('post.desc'),
+                'content' => input('post.content')
+            ];
+            $result = model('Article')->edit($data);
+            if ($result == 1) {
+                $this->success('文章添加成功', 'admin/article/list');
+            } else {
+                $this->error($result);
+            }
+        }
+
         $articleInfo = model('Article')->find(input('id'));
         $cates = model('Cate')->select();
         $viewData = [

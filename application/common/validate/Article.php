@@ -31,4 +31,9 @@ class Article extends Validate
     {
         return $this->only(['is_top']);
     }
+
+    public function sceneEdit()
+    {
+        return $this->only(['title', 'tags', 'cate_id', 'desc', 'content']);
+    }
 }

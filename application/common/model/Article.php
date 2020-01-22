@@ -12,8 +12,9 @@ class Article extends Model
 
     // 关联栏目表
 
-    public function cate(){
-        return $this->belongsTo('Cate','cate_id','id');
+    public function cate()
+    {
+        return $this->belongsTo('Cate', 'cate_id', 'id');
     }
     // 添加文章
     public function add($data)
@@ -47,6 +48,29 @@ class Article extends Model
             return 1;
         } else {
             return '操作失败';
+        }
+    }
+
+    public function edit($data)
+    {
+        $validate = new \app\common\validate\Article();
+        if (!$validate->scene('edit')->check($data)) {
+            return $validate->getError();
+        }
+
+        $articleInfo = $this->find($data['id']);
+        $articleInfo->title = $data['title'];
+        $articleInfo->tags = $data['tags'];
+        $articleInfo->is_top = $data['is_top'];
+        $articleInfo->cate_id = $data['cate_id'];
+        $articleInfo->desc = $data['desc'];
+        $articleInfo->content = $data['content'];
+
+        $result = $articleInfo->save();
+        if ($result) {
+            return 1;
+        } else {
+            return '文章修改失败';
         }
     }
 }

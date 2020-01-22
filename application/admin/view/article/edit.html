@@ -29,7 +29,8 @@
                                 <span class="widget-caption">文章添加</span>
                             </div>
                             <div class="widget-body">
-                                <form action="" class="form-horizontal">
+                                <form action="javascript:;" class="form-horizontal">
+                                    <input name="id" type="hidden" value="{$articleInfo.id}">
                                     <div class="form-group">
                                         <label for="title" class="control-label col-sm-2 no-padding-right">文章标题</label>
                                         <div class="col-sm-6">
@@ -50,8 +51,9 @@
                                     <div class="form-group">
                                         <div class="checkbox col-sm-offset-2 col-sm-6">
                                             <label>
-                                                <input type="checkbox" name="is_top" id="" {if $articleInfo.is_top==1 }
-                                                    checked {/if}> <span class="text">是否推荐‘</span>
+                                                <input value="1" type="checkbox" name="is_top" id="" {if
+                                                    $articleInfo.is_top==1 } checked {/if}> <span
+                                                    class="text">是否推荐‘</span>
                                             </label>
                                         </div>
                                     </div>
@@ -62,7 +64,8 @@
                                             <select id="cateid" name="cate_id" class="form-control">
                                                 <option value="">请选择</option>
                                                 {volist name='cates' id='vo'}
-                                                <option value="{$vo.id}" {if $articleInfo.id==$vo.id} selected {/ if}>
+                                                <option {if $articleInfo.cate_id==$vo.id } selected {/if}
+                                                    value="{$vo.id}">
                                                     {$vo.catename} </option>/
                                                 {/volist}
                                             </select> </div>
@@ -84,7 +87,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-6">
-                                            <button id="articleEdit" class="btn btn-primary">添加</button>
+                                            <button id="articleEdit" class="btn btn-primary">修改</button>
                                         </div>
                                     </div>
                                 </form>
@@ -105,38 +108,37 @@
 {include file='public/_js'/}
 <script src="/static/lib/ueditor/ueditor.config.js"></script>
 <script src="/static/lib/ueditor/ueditor.all.js"></script>
-
 </body>
-<!--  /Body -->
+< !-- /Body -->
 
-</html>
+    </html>
 
-<script>
-    $(function () {
-        UE.getEditor('content');
-        $('#articleEdit').click(function () {
-            $.ajax({
-                url: "{:url('admin/article/edit')}",
-                type: 'post',
-                data: $('form').serialize(),
-                dataType: 'json',
-                success: function (data) {
-                    if (data.code == 1) {
-                        layer.msg(data.msg, { icon: 6, time: 2000 }, function () {
-                            location.href = data.url;
-                        })
+    <script>
+        $(function () {
+            UE.getEditor('content');
+            $('#articleEdit').click(function () {
+                $.ajax({
+                    url: "{:url('admin/article/edit')}",
+                    type: 'post',
+                    data: $('form').serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code == 1) {
+                            layer.msg(data.msg, { icon: 6, time: 2000 }, function () {
+                                location.href = data.url;
+                            })
+                        } else {
+                            layer.open({
+                                icon: 5,
+                                title: '文章修改失败',
+                                content: data.msg,
+                                anim: 6
+                            });
+                        }
                     }
-                    else {
-                        layer.open({
-                            icon: 5,
-                            title: '添加失败',
-                            content: data.msg,
-                            anim: 6
-                        });
-                    }
-                }
+                });
+                return false;
             });
-            return false;
+
         });
-    });
-</script>
+    </script>
