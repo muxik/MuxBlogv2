@@ -90,4 +90,18 @@ class Article extends Controller
         $this->assign($viewData);
         return view();
     }
+
+    //文章删除
+    public function del()
+    {
+        if (request()->isAjax()) {
+            $articleInfo = model('Article')->find(input('post.id'));
+            $result = $articleInfo->delete();
+            if ($result) {
+                $this->success('删除成功', 'admin/article/list');
+            } else {
+                $this->error('删除失败');
+            }
+        }
+    }
 }

@@ -60,7 +60,8 @@
                                             {/if}
                                             <a href="{:url('admin/article/edit',['id' => $vo.id])}"
                                                 class="btn btn-sm btn-warning">编辑</a>
-                                            <a href="#" class="btn btn-sm btn-danger">删除</a>
+                                            <a href="#" dataid="{$vo.id}"
+                                                class="btn btn-sm btn-danger article-del">删除</a>
                                         </td>
                                     </tr>
                                     {/volist}
@@ -129,5 +130,40 @@
             });
             return false;
         });
+
+        $('.article-del').click(function () {
+            var id = $(this).attr('cateid');
+            layer.confirm('确定删除吗?', {
+                title: '推荐操作',
+                icon: 3
+            }, function (index) {
+                layer.close(index);
+                $.ajax({
+                    url: "{:url('admin/article/del')}",
+                    type: 'post',
+                    data: { "id": id },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code == 1) {
+                            layer.msg(data.msg, {
+                                icon: 6, time: 2000
+                            }, function () {
+                                location.href = data.url;
+                            });
+                        }
+                        else {
+                            layer.open({
+                                icon: 5,
+                                content: data.msg,
+                                title: "操作失败",
+                                anim: 6
+                            });
+                        }
+                    }
+                });
+            });
+            return false;
+        });
+
     });
 </script>

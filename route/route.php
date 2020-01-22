@@ -13,28 +13,31 @@
 
 
 Route::group('admin', function () {
+    // Login and register route
     Route::rule('/', 'admin/index/login', 'get|post');
     Route::rule('register', 'admin/index/register', 'get|post');
     Route::rule('forget', 'admin/index/forget', 'get|post');
     Route::rule('reset', 'admin/index/reset', 'post');
-
-    Route::rule('index', 'admin/home/index', 'get');
     Route::rule('loginout', 'admin/home/loginout', 'post');
 
-    // Cate operation
+    // Home page route
+    Route::rule('index', 'admin/home/index', 'get');
+
+    // Cate route
     Route::rule('cate-list', 'admin/cate/list', 'get');
     Route::rule('cate-add', 'admin/cate/add', 'get|post');
     Route::rule('cate-sort', 'admin/cate/sort', 'post');
     Route::rule('cate-edit/[:id]', 'admin/cate/edit', 'get|post');
     Route::rule('cate-del', 'admin/cate/del', 'post');
 
-    // Article operation
+    // Article route
 
     Route::rule('article-list', 'admin/article/list', 'get');
     Route::rule('article-add', 'admin/article/add', 'get|post');
     Route::rule('article-top', 'admin/article/top', 'post');
-    Route::rule('article-del', 'admin/article/del', 'post');
     Route::rule('article-edit/[:id]', 'admin/article/edit', 'get|post');
+    Route::rule('article-del', 'admin/article/del', 'post');
 });
+
 
 Route::rule('/', 'admin/index/demo', 'get|post');

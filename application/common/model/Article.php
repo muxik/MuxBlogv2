@@ -11,7 +11,6 @@ class Article extends Model
     use SoftDelete;
 
     // 关联栏目表
-
     public function cate()
     {
         return $this->belongsTo('Cate', 'cate_id', 'id');

@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+
 class Cate extends Base
 {
 
@@ -81,8 +82,8 @@ class Cate extends Base
     public function del()
     {
         if (request()->isAjax()) {
-            $cateInfo = model('Cate')->find(input('post.id'));
-            $result = $cateInfo->delete();
+            $cateInfo = model('Cate')->with('article')->find(input('post.id'));
+            $result = $cateInfo->together('article')->delete();
             if ($result) {
                 $this->success('删除成功', 'admin/cate/list');
             } else {
