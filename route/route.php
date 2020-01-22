@@ -31,12 +31,16 @@ Route::group('admin', function () {
     Route::rule('cate-del', 'admin/cate/del', 'post');
 
     // Article route
-
     Route::rule('article-list', 'admin/article/list', 'get');
     Route::rule('article-add', 'admin/article/add', 'get|post');
     Route::rule('article-top', 'admin/article/top', 'post');
     Route::rule('article-edit/[:id]', 'admin/article/edit', 'get|post');
     Route::rule('article-del', 'admin/article/del', 'post');
+
+    //Member route
+    Route::rule('member-add', 'admin/member/add', 'get|post');
+    Route::rule('member-list', 'admin/member/list', 'get');
+    Route::rule('member-del', 'admin/member/del', 'post');
 });
 
 
