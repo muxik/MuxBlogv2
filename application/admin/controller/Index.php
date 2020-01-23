@@ -54,15 +54,7 @@ class Index extends Controller
                 $this->error($result);
             }
         }
-        // $data = [
-        //     'username' => 'muxi_k',
-        //     'email' => 'lqjxm666@163.com'
-        // ];
-
         return view();
-        // $result = model('Admin')->register($data);
-
-        // return $result;
     }
 
     //忘记密码 发送验证码
