@@ -105,28 +105,4 @@ class Index extends Controller
             $this->error($result);
         }
     }
-
-    public function demo()
-    {
-        // $result['id'] = 1;
-        // $result['nickname'] = 'muxi_k';
-        // $result['is_super'] = 0;
-
-        // $sessionData = [
-        //     'id' => $result['id'],
-        //     'nickname' => $result['nickname'],
-        //     'is_super' => $result['is_super']
-        // ];
-        // session('admin', $sessionData);
-        // session(null);
-        $vd = [
-            'username' => 'muxi_k',
-            'code' => md5('muxi_k')
-        ];
-
-        session('user', $vd);
-        // return json(session('user'));
-
-        return session('code');
-    }
 }
