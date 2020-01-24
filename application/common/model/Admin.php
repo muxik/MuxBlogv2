@@ -2,6 +2,7 @@
 
 namespace app\common\model;
 
+use app\common\validate\Admin as ValidateAdmin;
 use think\Model;
 use think\model\concern\SoftDelete;
 
@@ -85,6 +86,22 @@ class Admin extends Model
             return 1;
         } else {
             return '重置密码失败！';
+        }
+    }
+
+
+    public function add($data)
+    {
+        $validate = new \app\common\validate\Admin();
+        if (!$validate->scene('add')->check($data)) {
+            return $validate->getError();
+        }
+
+        $result = $this->allowField(true)->save($data);
+        if ($result) {
+            return 1;
+        } else {
+            return '添加失败';
         }
     }
 }

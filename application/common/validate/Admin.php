@@ -43,4 +43,12 @@ class Admin extends Validate
     {
         return $this->only(['code', 'password']);
     }
+
+    /**
+     * 添加用户
+     */
+    public function sceneAdd()
+    {
+        return $this->only(['username', 'password', 'conpass', 'email'])->append('username', 'unique:admin');
+    }
 }

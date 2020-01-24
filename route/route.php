@@ -42,7 +42,14 @@ Route::group('admin', function () {
     Route::rule('member-add', 'admin/member/add', 'get|post');
     Route::rule('member-del', 'admin/member/del', 'post');
     Route::rule('member-edit/[:id]', 'admin/member/edit', 'get|post');
+
+    // Admin route
+    Route::rule('admin-list', 'admin/admin/list', 'get');
+    Route::rule('admin-add', 'admin/admin/add', 'get|post');
+    Route::rule('admin-edit', 'admin/admin/edit', 'get|post');
+    Route::rule('admin-del', 'admin/admin/del', 'post');
+    Route::rule('admin-status', 'admin/admin/status', 'post');
+
+    // Commemt Rout
+    Route::rule('commemt-list', 'admin/commemt/list', 'get');
 });
-
-
-Route::rule('/', 'admin/index/demo', 'get|post');

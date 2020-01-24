@@ -57,11 +57,15 @@
                                             <td>{if $vo.is_super == 1}超级管理员{else /}普通管理员{/if}</td>
 
                                             <td>
+                                                {if $vo.is_super != 1}
                                                 {if session('admin.is_super') == 1}
                                                 {if $vo.status == 1}
-                                                <a href="javascript:;" class="btn btn-darkorange btn-xs">禁用</a>
+                                                <a href="#" dataid="{$vo.id}" status="{$vo.status}"
+                                                    class="btn btn-darkorange btn-xs admin-status">禁用</a>
                                                 {else /}
-                                                <a href="javascript:;" class="btn btn-success btn-xs">启用</a>
+                                                <a href="#" dataid="{$vo.id}" status="{$vo.status}"
+                                                    class="btn btn-success btn-xs admin-status">启用</a>
+                                                {/if}
                                                 {/if}
                                                 {/if}
                                                 <a href="{:url('admin/admin/edit',['id'=>$vo.id])}"
@@ -97,6 +101,45 @@
 <script>
     $(function () {
         $('.pagination').addClass('pagination-sm');
+
+        $('.admin-status').click(function () {
+            var id = $(this).attr('dataid');
+            var status = $(this).attr('status');
+            if (status == 1) {
+                var msg = '确认禁用吗？';
+            } else {
+                var msg = '确认启用吗？';
+            }
+            layer.confirm(msg, {
+                title: "状态操作",
+                icon: 3
+            }, function (index) {
+                layer.close(index);
+                $.ajax({
+                    url: "{:url('admin/admin/status')}",
+                    type: 'post',
+                    data: { id: id, status: status },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code == 1) {
+                            layer.msg(data.msg, {
+                                icon: 6,
+                                time: 2000
+                            }, function () {
+                                location.href = data.url;
+                            })
+                        } else {
+                            layer.open({
+                                icon: 5,
+                                title: '操作失败',
+                                content: data.msg,
+                                anim: 6
+                            });
+                        }
+                    }
+                });
+            });
+        });
 
         $('.admin-del').click(function () {
             var id = $(this).attr('dataid');
