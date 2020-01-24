@@ -7,10 +7,10 @@ use think\Validate;
 class Member extends Validate
 {
     protected $rule = [
-        'username|管理员帐户' => 'require',
+        'username|会员帐户' => 'require',
         'password|密码' => 'require',
         'email|邮箱' => 'require|email|unique:member',
-        'code|验证码' => 'require'
+        'nickname|昵称' => 'require'
     ];
 
     /**
@@ -19,5 +19,11 @@ class Member extends Validate
     public function sceneAdd()
     {
         return $this->only(['username', 'password', 'email'])->append('username', 'unique:member');
+    }
+
+    // 修改验证场景 
+    public function sceneEdit()
+    {
+        return $this->only(['nickname', 'password']);
     }
 }

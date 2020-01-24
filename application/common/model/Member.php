@@ -10,6 +10,9 @@ class Member extends Model
     // 软删除
     use SoftDelete;
 
+    // 只读字段
+    protected $readonly = ['username', 'email'];
+
     // 添加会员
     public function add($data)
     {
@@ -22,7 +25,26 @@ class Member extends Model
         if ($result) {
             return 1;
         } else {
-            return '注册失败';
+            return '添加失败';
+        }
+    }
+
+    public function edit($data)
+    {
+        $validate = new \app\common\validate\Member();
+        if (!$validate->scene('edit')->check($data)) {
+            return $validate->getError();
+        }
+
+        $memberInfo = $this->find($data['id']);
+        $memberInfo->nickname = $data['nickname'];
+        $memberInfo->password = $data['password'];
+        $result = $memberInfo->save();
+
+        if ($result) {
+            return 1;
+        } else {
+            return '修改失败';
         }
     }
 }

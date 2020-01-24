@@ -51,7 +51,7 @@ class Member extends Base
             ];
             $result = model('Member')->edit($data);
             if ($result == 1) {
-                $this->success('文章添加成功', 'admin/member/list');
+                $this->success('修改成功', 'admin/member/list');
             } else {
                 $this->error($result);
             }
