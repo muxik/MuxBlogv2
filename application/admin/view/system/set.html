@@ -31,12 +31,13 @@
                             <div class="widget-body">
 
                                 <form class="form-horizontal">
+                                    <input type="hidden" name="id" value="{$systemInfo.id}">
                                     <div class="form-group">
                                         <label for="catename"
                                             class="col-sm-2 control-label no-padding-right">网站名称</label>
                                         <div class="col-sm-6">
                                             <input name="webname" type="text" class="form-control" id="catename"
-                                                placeholder="网站名称" />
+                                                placeholder="网站名称" value="{$systemInfo.webname}" />
                                             <p class="help-block">请输入网站名称</p>
                                         </div>
                                     </div>
@@ -45,7 +46,7 @@
                                         <label for="sort" class="col-sm-2 control-label no-padding-right">版权信息</label>
                                         <div class="col-sm-6">
                                             <input name="copyright" type="text" class="form-control" id="sort"
-                                                placeholder="版权信息" />
+                                                placeholder="版权信息" value="{$systemInfo.copyright}" />
                                             <p class="help-block">请输入版权信息</p>
                                         </div>
                                     </div>

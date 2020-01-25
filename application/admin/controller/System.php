@@ -8,16 +8,23 @@ class System extends Base
     {
         if (request()->isAjax()) {
             $data = [
+                'id' => input('post.id'),
                 'webname' => input('post.webname'),
                 'copyright' => input('post.copyright')
             ];
             $reslut = model('System')->set($data);
-            if ($reslut) {
+            if ($reslut == 1) {
                 $this->success('修改成功', 'admin/system/set');
             } else {
                 $this->error($reslut);
+                // return json($data);
             }
         }
+        $systemInfo = model('System')->find();
+        $viewData = [
+            'systemInfo' => $systemInfo
+        ];
+        $this->assign($viewData);
         return view();
     }
 }
