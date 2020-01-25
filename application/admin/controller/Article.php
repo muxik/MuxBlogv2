@@ -96,8 +96,8 @@ class Article extends Controller
     public function del()
     {
         if (request()->isAjax()) {
-            $articleInfo = model('Article')->find(input('post.id'));
-            $result = $articleInfo->delete();
+            $articleInfo = model('Article')->with('comments')->find(input('post.id'));
+            $result = $articleInfo->together('comments')->delete();
             if ($result) {
                 $this->success('删除成功', 'admin/article/list');
             } else {

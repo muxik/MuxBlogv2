@@ -50,6 +50,10 @@ Route::group('admin', function () {
     Route::rule('admin-del', 'admin/admin/del', 'post');
     Route::rule('admin-status', 'admin/admin/status', 'post');
 
-    // Commemt Rout
-    Route::rule('commemt-list', 'admin/commemt/list', 'get');
+    // Commemt Route
+    Route::rule('commemt-list', 'admin/comment/list', 'get');
+    ROute::rule('commemt-del', 'admin/comment/del', 'post');
+
+    // system settings Route
+    Route::rule('system-set', 'admin/system/set', 'get|post');
 });
