@@ -29,6 +29,12 @@ class Member extends Model
         }
     }
 
+    // 关联评论
+    public function comments()
+    {
+        return $this->hsaMany('Comment', 'member_id', 'id');
+    }
+
     public function edit($data)
     {
         $validate = new \app\common\validate\Member();
