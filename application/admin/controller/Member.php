@@ -8,7 +8,7 @@ class Member extends Base
     // 会员列表
     public function list()
     {
-        $members = model('Member')->order(['id' => 'desc'])->paginate(5);
+        $members = model('Member')->order(['id' => 'desc'])->paginate(10);
         $viewData = [
             'members' => $members
         ];

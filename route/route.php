@@ -14,6 +14,9 @@ Route::rule('cate/:id', 'index/index/index', 'get');
 Route::group('/', function () {
     Route::rule('/', 'index/index/index', 'get');
     Route::rule('article-<id>', 'index/article/info', 'get');
+    Route::rule('register', 'index/index/register', 'get|post');
+    Route::rule('login', 'index/index/login', 'get|post');
+    Route::rule('login_out', 'index/index/login_out', 'post');
 });
 
 // Back-end

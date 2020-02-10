@@ -35,6 +35,7 @@ class Member extends Model
         return $this->hsaMany('Comment', 'member_id', 'id');
     }
 
+    // 会员修改
     public function edit($data)
     {
         $validate = new \app\common\validate\Member();
@@ -51,6 +52,45 @@ class Member extends Model
             return 1;
         } else {
             return '修改失败';
+        }
+    }
+
+    // 前台会员注册
+    public function register($data)
+    {
+        $validate = new \app\common\validate\Member();
+        if (!$validate->scene('register')->check($data)) {
+            return $validate->getError();
+        }
+
+        $res = $this->allowField(true)->save($data);
+        if ($res) {
+            return 1;
+        } else {
+            return '注册失败';
+        }
+    }
+
+    // 前台会员登录
+    public function login($data)
+    {
+        $validate = new \app\common\validate\Member();
+        if (!$validate->scene('login')->check($data)) {
+            return $validate->getError();
+        }
+        // 过滤验证码
+        unset($data['verify']);
+
+        $result = $this->where($data)->find();
+        if ($result) {
+            $sessionDate = [
+                'id' => $result['id'],
+                'nickname' => $result['nickname']
+            ];
+            session('index', $sessionDate);
+            return 1;
+        } else {
+            return '用户名或者密码错误';
         }
     }
 }

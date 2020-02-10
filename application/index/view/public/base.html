@@ -30,8 +30,13 @@
                     {/volist}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">登录</a></li>
-                    <li><a href="#">注册</a></li>
+                    {if session('?index.id')}
+                    <li><a href="#">{:session('index.nickname')}</a></li>
+                    <li><a href="#" id="login_out">退出</a></li>
+                    {else /}
+                    <li><a href="{:url('index/index/login')}">登录</a></li>
+                    <li><a href="{:url('index/index/register')}">注册</a></li>
+                    {/if}
                     <li><a href="#">投稿</a></li>
                 </ul>
                 <form action="#" class="navbar-form navbar-right">
@@ -50,13 +55,43 @@
 
         {/block}
     </div>
+
+
+    {block name='footer'}
     <div class="footer">
         <p>Copyright 2018 <a href="//{$webInfo.copyright}" target="_blank">{$webInfo.copyright}</a> All Rights Reserved
         </p>
     </div>
+    {/block}
 
     <script src="/static/index/js/jquery-3.3.1.min.js"></script>
     <script src="/static/index/js/bootstrap.min.js"></script>
+    <script src="/static/lib/layer/layer.js"></script>
+
+    <script>
+        $(function () {
+            $('#login_out').click(function () {
+                $.ajax({
+                    url: "{:url('index/index/login_out')}",
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.code == 1) {
+                            layer.msg(res.msg, { icon: 6, time: 2000 }, function () {
+                                location.href = res.url;
+                            });
+                        } else {
+                            window.alert('退出失败');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
+
+{block name='js'}
+
+{/block}
