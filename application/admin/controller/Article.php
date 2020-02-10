@@ -31,7 +31,8 @@ class Article extends Controller
                 'is_top' => input('post.is_top', 0),
                 'cate_id' => input('post.cate_id'),
                 'desc' => input('post.desc'),
-                'content' => input('post.content')
+                'content' => input('post.content'),
+                'author' => '李桥金'
             ];
             $result = model('Article')->add($data);
             if ($result == 1) {

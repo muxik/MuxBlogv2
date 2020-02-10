@@ -16,7 +16,13 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 
-
+/**
+ * 发送邮件函数
+ * @param String $to 收件人
+ * @param String $title 邮件标题
+ * @param String $content 邮件内容
+ * @return String Error Info 
+ */
 function mailto($to, $title, $content)
 {
     $mail = new PHPMailer(true);
@@ -49,8 +55,22 @@ function mailto($to, $title, $content)
     }
 }
 
-// 把span字符串
+/**
+ * 把span标签替换成a标签
+ * @param String $data
+ * @return String
+ */
 function replace($data)
 {
     return str_replace('span', 'a', $data);
+}
+
+/**
+ * 把字符串转换成数组
+ * @param String $data 字符串
+ * @return Array
+ */
+function strToArray($data)
+{
+    return explode('|', $data);
 }

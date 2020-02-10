@@ -9,9 +9,14 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-// use think\console\command\optimize\Route;
+// Front-end
+Route::rule('cate/:id', 'index/index/index', 'get');
+Route::group('/', function () {
+    Route::rule('/', 'index/index/index', 'get');
+    Route::rule('article-<id>', 'index/article/info', 'get');
+});
 
-
+// Back-end
 Route::group('admin', function () {
     // Login and register route
     Route::rule('/', 'admin/index/login', 'get|post');
