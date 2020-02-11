@@ -69,7 +69,7 @@
     */
 ```
 
-- **`strToArray`**
+- **`strToArray()`**
 
 ```php
     /**
@@ -83,6 +83,8 @@
       * @return Array
       */
 ```
+
+- **`urlReplace()`**
 
 ```php
     /**
