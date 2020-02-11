@@ -39,7 +39,7 @@
       * mailto()
       * 发送邮件函数    strToArray
 
-     @return Array
+      * @return Array
       * function mailto(
           * $to,
           * $title,
@@ -90,7 +90,6 @@
 
       * 首页url替换
 
-    <?php
       * function urlReplace($url) { }
       * @param String $url — 要转换的url地址
 
