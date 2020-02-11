@@ -60,7 +60,7 @@ Route::group('admin', function () {
     // Admin route
     Route::rule('admin-list', 'admin/admin/list', 'get');
     Route::rule('admin-add', 'admin/admin/add', 'get|post');
-    Route::rule('admin-edit', 'admin/admin/edit', 'get|post');
+    Route::rule('admin-edit/[:id]', 'admin/admin/edit', 'get|post');
     Route::rule('admin-del', 'admin/admin/del', 'post');
     Route::rule('admin-status', 'admin/admin/status', 'post');
 

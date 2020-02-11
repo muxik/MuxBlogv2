@@ -21,9 +21,11 @@ use PHPMailer\PHPMailer\Exception;
  * @param String $to 收件人
  * @param String $title 邮件标题
  * @param String $content 邮件内容
+ * @param String $username 发件人邮箱帐号
+ * @param String $password 发件人邮箱密码
  * @return String Error Info 
  */
-function mailto($to, $title, $content)
+function mailto($to, $title, $content, $username, $password)
 {
     $mail = new PHPMailer(true);
 
@@ -33,8 +35,8 @@ function mailto($to, $title, $content)
         $mail->isSMTP();                                            // Send using SMTP
         $mail->Host       = 'smtp.163.com';                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = 'muxi_k_ing@163.com';                     // SMTP username
-        $mail->Password   = 'muxi20030704';                               // SMTP password
+        $mail->Username   = $username;                     // SMTP username
+        $mail->Password   = $password;                               // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
         $mail->Port       = 465;                                    // TCP port to connect to
 

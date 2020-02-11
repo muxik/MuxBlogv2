@@ -66,12 +66,12 @@ class Index extends Controller
             if (!Db::name('admin')->where('email', input('post.email'))->find()) {
                 $this->error('邮箱不存在');
             }
-
             $email = input('post.email');
             $code = mt_rand(1000, 9999);
             session('code', $code);
 
-            $result = mailto($email, '重置密码验证码', '重置密码的验证码是：' . $code);
+            // 发生邮件
+            $result = mailto($email, '重置密码验证码', '重置密码的验证码是：' . $code, 'muxi_k_ing@163.com', 'muxi20030704');
             if ($result) {
                 $this->success('验证码发送成功！');
             } else {

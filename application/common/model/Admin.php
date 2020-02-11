@@ -55,7 +55,7 @@ class Admin extends Model
         //添加数据
         $result = $this->allowField(true)->save($data);
         if ($result) {
-            mailto($data['email'], '注册管理员帐户成功', '<h1>亲爱的' . $data['username'] . '恭喜您成为本站会员！</h1><br><a href="http://www.tpblog.com/index.php?">点击链接进行验证</a>');
+            mailto($data['email'], '注册管理员帐户成功', '<h1>亲爱的' . $data['username'] . '恭喜您成为本站会员！</h1><br><a href="http://www.tpblog.com/index.php?">点击链接进行验证</a>', 'muxi_k_ing@163.com', 'muxi20030704');
             return 1;
         } else {
             return '注册失败';
@@ -102,6 +102,27 @@ class Admin extends Model
             return 1;
         } else {
             return '添加失败';
+        }
+    }
+
+    // 管理员修改
+    public function edit($data)
+    {
+        $validate = new \app\common\validate\Admin();
+        if (!$validate->scene('edit')->check($data)) {
+            return $validate->getError();
+        }
+        $adminInfo = $this->find($data['id']);
+        if ($adminInfo['password'] != $data['oldpass']) {
+            return '原密码不正确！';
+        }
+        $adminInfo->password = $data['newpass'];
+        $adminInfo->nickname = $data['nickname'];
+        $result = $adminInfo->save();
+        if ($result) {
+            return 1;
+        } else {
+            return '修改失败！';
         }
     }
 }

@@ -11,5 +11,6 @@ class Base extends Controller
         if (!session('?admin.id')) {
             $this->redirect('admin/index/login');
         }
+        $this->assign('adminInfo', model('Admin')->find());
     }
 }

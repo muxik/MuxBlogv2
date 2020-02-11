@@ -54,4 +54,30 @@ class Admin extends Base
             $this->error('操作失败');
         }
     }
+
+    public function edit()
+    {
+        if (request()->isAjax()) {
+            $data = [
+                'id' => input('post.id'),
+                'oldpass' => input('post.oldpass'),
+                'newpass' => input('post.newpass'),
+                'nickname' => input('post.nickname'),
+                'email' => input('post.email'),
+                'super' => input('post.super') ?? 0
+            ];
+            $result = model('Admin')->edit($data);
+            if ($result == 1) {
+                $this->success('修改成功！', 'admin/admin/list');
+            } else {
+                $this->error($result);
+            }
+        }
+        $adminInfo = model('Admin')->find(input('id'));
+        $viewData = [
+            'adminInfo' => $adminInfo
+        ];
+        $this->assign($viewData);
+        return view();
+    }
 }

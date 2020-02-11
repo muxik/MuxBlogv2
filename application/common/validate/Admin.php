@@ -17,7 +17,9 @@ class Admin extends Validate
         'password|密码' => 'require',
         'conpass|确认密码' => 'require|confirm:password',
         'email|邮箱' => 'require|email|unique:admin',
-        'code|验证码' => 'require'
+        'code|验证码' => 'require',
+        'oldpass' => 'require',
+        'newpass' => 'require'
     ];
 
     /**
@@ -50,5 +52,11 @@ class Admin extends Validate
     public function sceneAdd()
     {
         return $this->only(['username', 'password', 'conpass', 'email'])->append('username', 'unique:admin');
+    }
+
+    // 管理员修改
+    public function sceneEdit()
+    {
+        return $this->only(['oldpass', 'newpass', 'nickname']);
     }
 }
