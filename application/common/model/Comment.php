@@ -21,4 +21,26 @@ class Comment extends Model
     {
         return $this->belongsTo('Member', 'member_id', 'id');
     }
+
+    // 文章评论
+    public function comment($data)
+    {
+        $validate = new \app\common\validate\Comment();
+
+        if (!$validate->scene('comment')->check($data)) {
+            return $this->getError();
+        }
+
+        $res = $this->allowField(true)->save($data);
+
+        // 添加评论数
+        $comm_num = model('Article')->where('id', $data['article_id'])->find();
+        $comm_num->comm_num += 1;
+        $comm_res = $comm_num->save();
+        if ($res && $comm_res) {
+            return 1;
+        } else {
+            return '评论失败！';
+        }
+    }
 }

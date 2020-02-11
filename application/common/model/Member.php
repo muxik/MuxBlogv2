@@ -32,7 +32,7 @@ class Member extends Model
     // 关联评论
     public function comments()
     {
-        return $this->hsaMany('Comment', 'member_id', 'id');
+        return $this->hasMany('Comment', 'member_id', 'id');
     }
 
     // 会员修改

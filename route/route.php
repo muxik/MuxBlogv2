@@ -11,13 +11,19 @@
 
 // Front-end
 Route::rule('cate/:id', 'index/index/index', 'get');
-Route::group('/', function () {
+
+Route::group('', function () {
     Route::rule('/', 'index/index/index', 'get');
     Route::rule('article-<id>', 'index/article/info', 'get');
     Route::rule('register', 'index/index/register', 'get|post');
     Route::rule('login', 'index/index/login', 'get|post');
     Route::rule('login_out', 'index/index/login_out', 'post');
+    Route::rule('search', 'index/index/search', 'get');
+    Route::rule('comment', 'index/article/comment', 'post');
 });
+
+
+
 
 // Back-end
 Route::group('admin', function () {

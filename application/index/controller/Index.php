@@ -76,4 +76,18 @@ class Index extends Base
             $this->success('退出成功！', 'index/index/index');
         }
     }
+
+    // 文章搜索 
+    public function search()
+    {
+        $where[] = [
+            'title', 'like', '%' . input('keyword') . '%'
+        ];
+        $catename = input('keyword');
+        $articles = model('Article')->where($where)->order('create_time', 'desc')->paginate(7);
+        $viewData = ['articles' => $articles, 'catename' => $catename];
+        $this->assign($viewData);
+
+        return view('index');
+    }
 }

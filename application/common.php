@@ -74,3 +74,18 @@ function strToArray($data)
 {
     return explode('|', $data);
 }
+
+
+/**
+ * 首页url替换
+ * @param String $url 要转换的url地址
+ * @return String
+ */
+function urlReplace($url)
+{
+    if (!strpos($url, 'index.php')) {
+        return 'index.php' . $url;
+    } else {
+        return $url;
+    }
+}
