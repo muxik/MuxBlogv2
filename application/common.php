@@ -58,7 +58,7 @@ function mailto($to, $title, $content, $username, $password)
 }
 
 /**
- * 把span标签替换成a标签
+ * 分页操作把span标签替换成a标签
  * @param String $data
  * @return String
  */
@@ -68,7 +68,7 @@ function replace($data)
 }
 
 /**
- * 把字符串转换成数组
+ * 把字符串转换成数组 文章标签
  * @param String $data 字符串
  * @return Array
  */
