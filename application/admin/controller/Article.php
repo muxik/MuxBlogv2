@@ -2,10 +2,7 @@
 
 namespace app\admin\controller;
 
-
-use think\Controller;
-
-class Article extends Controller
+class Article extends Base
 {
     // 文章列表
     public function list()
