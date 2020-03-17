@@ -23,7 +23,7 @@ use PHPMailer\PHPMailer\Exception;
  * @param String $content 邮件内容
  * @param String $username 发件人邮箱帐号
  * @param String $password 发件人邮箱密码
- * @return String Error Info 
+ * @return String Error Info
  */
 function mailto($to, $title, $content, $username, $password)
 {
@@ -33,12 +33,12 @@ function mailto($to, $title, $content, $username, $password)
         //Server settings
         $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
         $mail->isSMTP();                                            // Send using SMTP
-        $mail->Host       = 'smtp.163.com';                    // Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = $username;                     // SMTP username
-        $mail->Password   = $password;                               // SMTP password
+        $mail->Host = 'smtp.163.com';                    // Set the SMTP server to send through
+        $mail->SMTPAuth = true;                                   // Enable SMTP authentication
+        $mail->Username = $username;                     // SMTP username
+        $mail->Password = $password;                               // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-        $mail->Port       = 465;                                    // TCP port to connect to
+        $mail->Port = 465;                                    // TCP port to connect to
 
         $mail->CharSet = 'utf-8';
         //Recipients
@@ -48,7 +48,7 @@ function mailto($to, $title, $content, $username, $password)
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = $title;
-        $mail->Body    = $content;
+        $mail->Body = $content;
         $mail->AltBody = $content;
 
         return $mail->send();

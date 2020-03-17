@@ -40,7 +40,7 @@
                     <li><a href="{:urlReplace(url('index/index/login'))}">登录</a></li>
                     <li><a href="{:urlReplace(url('index/index/register'))}">注册</a></li>
                     {/if}
-                    <li><a href="javascript:layer.msg('投稿功能还在开发中...',{icon:2,time:1500});">投稿</a></li>
+                    <li><a href="{:urlReplace(url('index/article/add'))}">投稿</a></li>
                 </ul>
 
                 <form action="{:url('index/index/search');}" class="navbar-form navbar-right" method="GET">

@@ -29,7 +29,7 @@ class Article extends Base
                 'cate_id' => input('post.cate_id'),
                 'desc' => input('post.desc'),
                 'content' => input('post.content'),
-                'author' => '李桥金'
+                'author' => session('admin.nickname')
             ];
             $result = model('Article')->add($data);
             if ($result == 1) {

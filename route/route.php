@@ -13,13 +13,22 @@
 Route::rule('cate/:id', 'index/index/index', 'get');
 
 Route::group('', function () {
+    // 博客主页
     Route::rule('/', 'index/index/index', 'get');
+    // 文章内容
     Route::rule('article-<id>', 'index/article/info', 'get');
+    // 注册
     Route::rule('register', 'index/index/register', 'get|post');
+    // 登录
     Route::rule('login', 'index/index/login', 'get|post');
+    // 退出登录
     Route::rule('login_out', 'index/index/login_out', 'post');
+    // 搜索
     Route::rule('search', 'index/index/search', 'get');
+    // 评论
     Route::rule('comment', 'index/article/comment', 'post');
+    // 文章投稿
+    Route::rule('post', 'index/article/add', 'get|post');
 });
 
 

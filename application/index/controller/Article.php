@@ -38,4 +38,29 @@ class Article extends Base
             }
         }
     }
+
+    public function add()
+    {
+        if (request()->isAjax()) {
+            $data = [
+                'title' => input('post.title'),
+                'tags' => input('post.tags'),
+                'is_top' => 0, /* 默认不推荐 */
+                'cate_id' => input('post.cate_id'),
+                'desc' => input('post.desc'),
+                'content' => input('post.content'),
+                'author' => session('index.nickname')
+            ];
+            $result = model('Article')->add($data);
+            if ($result == 1) {
+                $this->success('文章添加成功', '/');
+            } else {
+                $this->error($result);
+            }
+        }
+        $cates = model('Cate')->select();
+        $viewData = ['cates' => $cates];
+        $this->assign($viewData);
+        return view();
+    }
 }
